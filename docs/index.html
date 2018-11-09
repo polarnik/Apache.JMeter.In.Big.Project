@@ -1,0 +1,531 @@
+<!DOCTYPE html><html lang="ru-RU"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><style>@media screen{body,html{background:#000;height:100%;margin:0;overflow:hidden}.bespoke-marp-parent{bottom:0;left:0;position:absolute;right:0;top:0}.bespoke-marp-parent.bespoke-marp-cursor-inactive{cursor:none}svg.bespoke-marp-slide{height:100%;left:0;pointer-events:none;position:absolute;top:0;width:100%;z-index:-1;-webkit-transform:translateZ(0);transform:translateZ(0)}svg.bespoke-marp-slide.bespoke-marp-active{pointer-events:auto;z-index:0}.bespoke-progress-parent{background:#222;display:flex;height:5px;width:100%}.bespoke-progress-parent+.bespoke-marp-parent{top:5px}.bespoke-progress-parent .bespoke-progress-bar{flex:0 0 0;background:#0288d1;transition:flex-basis .2s cubic-bezier(0,1,1,1)}}@media print{.bespoke-progress-parent{display:none}.bespoke-marp-parent{top:0}}</style><style>@import 'scaffoldTheme';article#presentation > svg > foreignObject > section {
+  width: 1280px;
+  height: 720px;
+
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+
+  scroll-snap-align: center center;
+}article#presentation > svg > foreignObject > section::after {
+  bottom: 0;
+  content: attr(data-marpit-pagination);
+  padding: inherit;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}article#presentation > svg > foreignObject > section:not([data-marpit-pagination])::after {
+  display: none;
+}/* Normalization */article#presentation > svg > foreignObject > section h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}@page {
+  size: 1280px 720px;
+  margin: 0;
+}@media print {
+  html, body {
+    margin: 0;
+    page-break-inside: avoid;
+  }
+
+  article#presentation > svg > foreignObject > section {
+    page-break-before: always;
+  }
+
+  article#presentation > svg > foreignObject > section, article#presentation > svg > foreignObject > section * {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  article#presentation > svg {
+    display: block;
+    height: 100vh;
+    width: 100vw;
+  }
+}article#presentation > svg > foreignObject > section svg[data-marp-fitting=svg]{display:block;height:auto;width:100%}article#presentation > svg > foreignObject > section svg[data-marp-fitting=svg].__reflow__{content:""}article#presentation > svg > foreignObject > section [data-marp-fitting-svg-content]{display:table;white-space:nowrap}article#presentation > svg > foreignObject > section [data-marp-fitting-svg-content-wrap]{white-space:pre}article#presentation > svg > foreignObject > section img[data-marp-twemoji]{background:transparent;height:1em;margin:0 .05em 0 .1em;vertical-align:-.1em;width:1em}/*!
+ * Marp default theme.
+ *
+ * @theme default
+ */@font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,d09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM+8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB/aFGpk3jaTY6xa8JAGMW/O62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v+k/0an2i+itHDw3v2+9+DBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3/I7AtxEJLtzzuZfI+VVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy/Lt7Kc+0vWY/gAgIIEqAN9we0pwKXreiMasxvabDQMM4riO+qxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw+ymhce7vwM9jSqO8JyVd5RH9gyTt2+J/yUmYlIR0s04n6+7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv/ocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi+W2+MjCzMIDApSwvXzC97Z4Ig8N/BxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh/8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT+AEjAwuDFpBmA9KMDEwMCh9i/v8H8sH0/4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9/lqYwOGZxeUelN2U2R6+cArgtCJpauW7UQBqnFkUsjAY/kOU1cP+DAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl+vvmM/byA48e6tWrKArm4ZJlCbdsrxksL1AwWn/yBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO//sdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd/89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF+9JOS0nbaaYDCQfwCJ7Au3AHj+LO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm+EBXuAbHmIMSRMs+4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL+hD7C1xoaHeLJSEao0FEW14ckxC+TU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13/+lm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl+9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O/AdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB///AA8AAQAAAAAAAAAAAAAAAAABAAAAAA==) format("woff")}article#presentation > svg > foreignObject > section .markdown-body,article#presentation > svg > foreignObject > section{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}article#presentation > svg > foreignObject > section .markdown-body .pl-c,article#presentation > svg > foreignObject > section .pl-c{color:#6a737d}article#presentation > svg > foreignObject > section .markdown-body .pl-c1,article#presentation > svg > foreignObject > section .markdown-body .pl-s .pl-v,article#presentation > svg > foreignObject > section .pl-c1,article#presentation > svg > foreignObject > section .pl-s .pl-v{color:#005cc5}article#presentation > svg > foreignObject > section .markdown-body .pl-e,article#presentation > svg > foreignObject > section .markdown-body .pl-en,article#presentation > svg > foreignObject > section .pl-e,article#presentation > svg > foreignObject > section .pl-en{color:#6f42c1}article#presentation > svg > foreignObject > section .markdown-body .pl-s .pl-s1,article#presentation > svg > foreignObject > section .markdown-body .pl-smi,article#presentation > svg > foreignObject > section .pl-s .pl-s1,article#presentation > svg > foreignObject > section .pl-smi{color:#24292e}article#presentation > svg > foreignObject > section .markdown-body .pl-ent,article#presentation > svg > foreignObject > section .pl-ent{color:#22863a}article#presentation > svg > foreignObject > section .markdown-body .pl-k,article#presentation > svg > foreignObject > section .pl-k{color:#d73a49}article#presentation > svg > foreignObject > section .markdown-body .pl-pds,article#presentation > svg > foreignObject > section .markdown-body .pl-s,article#presentation > svg > foreignObject > section .markdown-body .pl-s .pl-pse .pl-s1,article#presentation > svg > foreignObject > section .markdown-body .pl-sr,article#presentation > svg > foreignObject > section .markdown-body .pl-sr .pl-cce,article#presentation > svg > foreignObject > section .markdown-body .pl-sr .pl-sra,article#presentation > svg > foreignObject > section .markdown-body .pl-sr .pl-sre,article#presentation > svg > foreignObject > section .pl-pds,article#presentation > svg > foreignObject > section .pl-s,article#presentation > svg > foreignObject > section .pl-s .pl-pse .pl-s1,article#presentation > svg > foreignObject > section .pl-sr,article#presentation > svg > foreignObject > section .pl-sr .pl-cce,article#presentation > svg > foreignObject > section .pl-sr .pl-sra,article#presentation > svg > foreignObject > section .pl-sr .pl-sre{color:#032f62}article#presentation > svg > foreignObject > section .markdown-body .pl-smw,article#presentation > svg > foreignObject > section .markdown-body .pl-v,article#presentation > svg > foreignObject > section .pl-smw,article#presentation > svg > foreignObject > section .pl-v{color:#e36209}article#presentation > svg > foreignObject > section .markdown-body .pl-bu,article#presentation > svg > foreignObject > section .pl-bu{color:#b31d28}article#presentation > svg > foreignObject > section .markdown-body .pl-ii,article#presentation > svg > foreignObject > section .pl-ii{color:#fafbfc;background-color:#b31d28}article#presentation > svg > foreignObject > section .markdown-body .pl-c2,article#presentation > svg > foreignObject > section .pl-c2{color:#fafbfc;background-color:#d73a49}article#presentation > svg > foreignObject > section .markdown-body .pl-c2:before,article#presentation > svg > foreignObject > section .pl-c2:before{content:"^M"}article#presentation > svg > foreignObject > section .markdown-body .pl-sr .pl-cce,article#presentation > svg > foreignObject > section .pl-sr .pl-cce{font-weight:700;color:#22863a}article#presentation > svg > foreignObject > section .markdown-body .pl-ml,article#presentation > svg > foreignObject > section .pl-ml{color:#735c0f}article#presentation > svg > foreignObject > section .markdown-body .pl-mh,article#presentation > svg > foreignObject > section .markdown-body .pl-mh .pl-en,article#presentation > svg > foreignObject > section .markdown-body .pl-ms,article#presentation > svg > foreignObject > section .pl-mh,article#presentation > svg > foreignObject > section .pl-mh .pl-en,article#presentation > svg > foreignObject > section .pl-ms{font-weight:700;color:#005cc5}article#presentation > svg > foreignObject > section .markdown-body .pl-mi,article#presentation > svg > foreignObject > section .pl-mi{font-style:italic;color:#24292e}article#presentation > svg > foreignObject > section .markdown-body .pl-mb,article#presentation > svg > foreignObject > section .pl-mb{font-weight:700;color:#24292e}article#presentation > svg > foreignObject > section .markdown-body .pl-md,article#presentation > svg > foreignObject > section .pl-md{color:#b31d28;background-color:#ffeef0}article#presentation > svg > foreignObject > section .markdown-body .pl-mi1,article#presentation > svg > foreignObject > section .pl-mi1{color:#22863a;background-color:#f0fff4}article#presentation > svg > foreignObject > section .markdown-body .pl-mc,article#presentation > svg > foreignObject > section .pl-mc{color:#e36209;background-color:#ffebda}article#presentation > svg > foreignObject > section .markdown-body .pl-mi2,article#presentation > svg > foreignObject > section .pl-mi2{color:#f6f8fa;background-color:#005cc5}article#presentation > svg > foreignObject > section .markdown-body .pl-mdr,article#presentation > svg > foreignObject > section .pl-mdr{font-weight:700;color:#6f42c1}article#presentation > svg > foreignObject > section .markdown-body .pl-ba,article#presentation > svg > foreignObject > section .pl-ba{color:#586069}article#presentation > svg > foreignObject > section .markdown-body .pl-sg,article#presentation > svg > foreignObject > section .pl-sg{color:#959da5}article#presentation > svg > foreignObject > section .markdown-body .pl-corl,article#presentation > svg > foreignObject > section .pl-corl{text-decoration:underline;color:#032f62}article#presentation > svg > foreignObject > section .markdown-body .octicon,article#presentation > svg > foreignObject > section .octicon{display:inline-block;vertical-align:text-top;fill:currentColor}article#presentation > svg > foreignObject > section .markdown-body a,article#presentation > svg > foreignObject > section a{background-color:transparent}article#presentation > svg > foreignObject > section .markdown-body a:active,article#presentation > svg > foreignObject > section .markdown-body a:hover,article#presentation > svg > foreignObject > section a:active,article#presentation > svg > foreignObject > section a:hover{outline-width:0}article#presentation > svg > foreignObject > section .markdown-body strong,article#presentation > svg > foreignObject > section strong{font-weight:inherit;font-weight:bolder}article#presentation > svg > foreignObject > section .markdown-body h1,article#presentation > svg > foreignObject > section h1{margin:.67em 0}article#presentation > svg > foreignObject > section .markdown-body img,article#presentation > svg > foreignObject > section img{border-style:none}article#presentation > svg > foreignObject > section .markdown-body code,article#presentation > svg > foreignObject > section .markdown-body kbd,article#presentation > svg > foreignObject > section .markdown-body pre,article#presentation > svg > foreignObject > section code,article#presentation > svg > foreignObject > section kbd,article#presentation > svg > foreignObject > section pre{font-family:monospace,monospace;font-size:1em}article#presentation > svg > foreignObject > section .markdown-body hr,article#presentation > svg > foreignObject > section hr{box-sizing:content-box;overflow:visible}article#presentation > svg > foreignObject > section .markdown-body input,article#presentation > svg > foreignObject > section input{font:inherit;margin:0;overflow:visible}article#presentation > svg > foreignObject > section .markdown-body [type=checkbox],article#presentation > svg > foreignObject > section [type=checkbox]{box-sizing:border-box;padding:0}article#presentation > svg > foreignObject > section .markdown-body *,article#presentation > svg > foreignObject > section *{box-sizing:border-box}article#presentation > svg > foreignObject > section .markdown-body input,article#presentation > svg > foreignObject > section input{font-family:inherit;font-size:inherit;line-height:inherit}article#presentation > svg > foreignObject > section .markdown-body a,article#presentation > svg > foreignObject > section a{color:#0366d6;text-decoration:none}article#presentation > svg > foreignObject > section .markdown-body a:hover,article#presentation > svg > foreignObject > section a:hover{text-decoration:underline}article#presentation > svg > foreignObject > section .markdown-body strong,article#presentation > svg > foreignObject > section strong{font-weight:600}article#presentation > svg > foreignObject > section .markdown-body hr,article#presentation > svg > foreignObject > section hr{height:0;margin:15px 0;overflow:hidden;background:transparent;border-bottom:1px solid #dfe2e5}article#presentation > svg > foreignObject > section .markdown-body hr:before,article#presentation > svg > foreignObject > section hr:before{display:table;content:""}article#presentation > svg > foreignObject > section .markdown-body hr:after,article#presentation > svg > foreignObject > section hr:after{display:table;clear:both;content:""}article#presentation > svg > foreignObject > section .markdown-body table,article#presentation > svg > foreignObject > section table{border-spacing:0;border-collapse:collapse}article#presentation > svg > foreignObject > section .markdown-body td,article#presentation > svg > foreignObject > section .markdown-body th,article#presentation > svg > foreignObject > section td,article#presentation > svg > foreignObject > section th{padding:0}article#presentation > svg > foreignObject > section .markdown-body h1,article#presentation > svg > foreignObject > section .markdown-body h2,article#presentation > svg > foreignObject > section .markdown-body h3,article#presentation > svg > foreignObject > section .markdown-body h4,article#presentation > svg > foreignObject > section .markdown-body h5,article#presentation > svg > foreignObject > section .markdown-body h6,article#presentation > svg > foreignObject > section h1,article#presentation > svg > foreignObject > section h2,article#presentation > svg > foreignObject > section h3,article#presentation > svg > foreignObject > section h4,article#presentation > svg > foreignObject > section h5,article#presentation > svg > foreignObject > section h6{margin-top:0;margin-bottom:0}article#presentation > svg > foreignObject > section .markdown-body h1,article#presentation > svg > foreignObject > section h1{font-size:32px;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body h2,article#presentation > svg > foreignObject > section h2{font-size:24px;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body h3,article#presentation > svg > foreignObject > section h3{font-size:20px;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body h4,article#presentation > svg > foreignObject > section h4{font-size:16px;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body h5,article#presentation > svg > foreignObject > section h5{font-size:14px;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body h6,article#presentation > svg > foreignObject > section h6{font-size:12px;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body p,article#presentation > svg > foreignObject > section p{margin-top:0;margin-bottom:10px}article#presentation > svg > foreignObject > section .markdown-body blockquote,article#presentation > svg > foreignObject > section blockquote{margin:0}article#presentation > svg > foreignObject > section .markdown-body ol,article#presentation > svg > foreignObject > section .markdown-body ul,article#presentation > svg > foreignObject > section ol,article#presentation > svg > foreignObject > section ul{padding-left:0;margin-top:0;margin-bottom:0}article#presentation > svg > foreignObject > section .markdown-body ol ol,article#presentation > svg > foreignObject > section .markdown-body ul ol,article#presentation > svg > foreignObject > section ol ol,article#presentation > svg > foreignObject > section ul ol{list-style-type:lower-roman}article#presentation > svg > foreignObject > section .markdown-body ol ol ol,article#presentation > svg > foreignObject > section .markdown-body ol ul ol,article#presentation > svg > foreignObject > section .markdown-body ul ol ol,article#presentation > svg > foreignObject > section .markdown-body ul ul ol,article#presentation > svg > foreignObject > section ol ol ol,article#presentation > svg > foreignObject > section ol ul ol,article#presentation > svg > foreignObject > section ul ol ol,article#presentation > svg > foreignObject > section ul ul ol{list-style-type:lower-alpha}article#presentation > svg > foreignObject > section .markdown-body dd,article#presentation > svg > foreignObject > section dd{margin-left:0}article#presentation > svg > foreignObject > section .markdown-body code,article#presentation > svg > foreignObject > section .markdown-body pre,article#presentation > svg > foreignObject > section code,article#presentation > svg > foreignObject > section pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px}article#presentation > svg > foreignObject > section .markdown-body pre,article#presentation > svg > foreignObject > section pre{margin-top:0;margin-bottom:0}article#presentation > svg > foreignObject > section .markdown-body .octicon,article#presentation > svg > foreignObject > section .octicon{vertical-align:text-bottom}article#presentation > svg > foreignObject > section .markdown-body .pl-0,article#presentation > svg > foreignObject > section .pl-0{padding-left:0!important}article#presentation > svg > foreignObject > section .markdown-body .pl-1,article#presentation > svg > foreignObject > section .pl-1{padding-left:4px!important}article#presentation > svg > foreignObject > section .markdown-body .pl-2,article#presentation > svg > foreignObject > section .pl-2{padding-left:8px!important}article#presentation > svg > foreignObject > section .markdown-body .pl-3,article#presentation > svg > foreignObject > section .pl-3{padding-left:16px!important}article#presentation > svg > foreignObject > section .markdown-body .pl-4,article#presentation > svg > foreignObject > section .pl-4{padding-left:24px!important}article#presentation > svg > foreignObject > section .markdown-body .pl-5,article#presentation > svg > foreignObject > section .pl-5{padding-left:32px!important}article#presentation > svg > foreignObject > section .markdown-body .pl-6,article#presentation > svg > foreignObject > section .pl-6{padding-left:40px!important}article#presentation > svg > foreignObject > section .markdown-body:before,article#presentation > svg > foreignObject > section:before{display:table;content:""}article#presentation > svg > foreignObject > section .markdown-body:after,article#presentation > svg > foreignObject > section:after{display:table;clear:both/* content:""; */}article#presentation > svg > foreignObject > section .markdown-body>:first-child,article#presentation > svg > foreignObject > section>:first-child{margin-top:0!important}article#presentation > svg > foreignObject > section .markdown-body>:last-child,article#presentation > svg > foreignObject > section>:last-child{margin-bottom:0!important}article#presentation > svg > foreignObject > section .markdown-body a:not([href]),article#presentation > svg > foreignObject > section a:not([href]){color:inherit;text-decoration:none}article#presentation > svg > foreignObject > section .markdown-body .anchor,article#presentation > svg > foreignObject > section .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}article#presentation > svg > foreignObject > section .markdown-body .anchor:focus,article#presentation > svg > foreignObject > section .anchor:focus{outline:none}article#presentation > svg > foreignObject > section .markdown-body blockquote,article#presentation > svg > foreignObject > section .markdown-body dl,article#presentation > svg > foreignObject > section .markdown-body ol,article#presentation > svg > foreignObject > section .markdown-body p,article#presentation > svg > foreignObject > section .markdown-body pre,article#presentation > svg > foreignObject > section .markdown-body table,article#presentation > svg > foreignObject > section .markdown-body ul,article#presentation > svg > foreignObject > section blockquote,article#presentation > svg > foreignObject > section dl,article#presentation > svg > foreignObject > section ol,article#presentation > svg > foreignObject > section p,article#presentation > svg > foreignObject > section pre,article#presentation > svg > foreignObject > section table,article#presentation > svg > foreignObject > section ul{margin-top:0;margin-bottom:16px}article#presentation > svg > foreignObject > section .markdown-body hr,article#presentation > svg > foreignObject > section hr{height:.25em;padding:0;margin:24px 0;background-color:#e1e4e8;border:0}article#presentation > svg > foreignObject > section .markdown-body blockquote,article#presentation > svg > foreignObject > section blockquote{padding:0 1em;color:#6a737d;border-left:.25em solid #dfe2e5}article#presentation > svg > foreignObject > section .markdown-body blockquote>:first-child,article#presentation > svg > foreignObject > section blockquote>:first-child{margin-top:0}article#presentation > svg > foreignObject > section .markdown-body blockquote>:last-child,article#presentation > svg > foreignObject > section blockquote>:last-child{margin-bottom:0}article#presentation > svg > foreignObject > section .markdown-body kbd,article#presentation > svg > foreignObject > section kbd{font-size:11px;border:1px solid #c6cbd1;border-bottom-color:#959da5;box-shadow:inset 0 -1px 0 #959da5}article#presentation > svg > foreignObject > section .markdown-body h1,article#presentation > svg > foreignObject > section .markdown-body h2,article#presentation > svg > foreignObject > section .markdown-body h3,article#presentation > svg > foreignObject > section .markdown-body h4,article#presentation > svg > foreignObject > section .markdown-body h5,article#presentation > svg > foreignObject > section .markdown-body h6,article#presentation > svg > foreignObject > section h1,article#presentation > svg > foreignObject > section h2,article#presentation > svg > foreignObject > section h3,article#presentation > svg > foreignObject > section h4,article#presentation > svg > foreignObject > section h5,article#presentation > svg > foreignObject > section h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}article#presentation > svg > foreignObject > section .markdown-body h1 .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h2 .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h3 .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h4 .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h5 .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h6 .octicon-link,article#presentation > svg > foreignObject > section h1 .octicon-link,article#presentation > svg > foreignObject > section h2 .octicon-link,article#presentation > svg > foreignObject > section h3 .octicon-link,article#presentation > svg > foreignObject > section h4 .octicon-link,article#presentation > svg > foreignObject > section h5 .octicon-link,article#presentation > svg > foreignObject > section h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}article#presentation > svg > foreignObject > section .markdown-body h1:hover .anchor,article#presentation > svg > foreignObject > section .markdown-body h2:hover .anchor,article#presentation > svg > foreignObject > section .markdown-body h3:hover .anchor,article#presentation > svg > foreignObject > section .markdown-body h4:hover .anchor,article#presentation > svg > foreignObject > section .markdown-body h5:hover .anchor,article#presentation > svg > foreignObject > section .markdown-body h6:hover .anchor,article#presentation > svg > foreignObject > section h1:hover .anchor,article#presentation > svg > foreignObject > section h2:hover .anchor,article#presentation > svg > foreignObject > section h3:hover .anchor,article#presentation > svg > foreignObject > section h4:hover .anchor,article#presentation > svg > foreignObject > section h5:hover .anchor,article#presentation > svg > foreignObject > section h6:hover .anchor{text-decoration:none}article#presentation > svg > foreignObject > section .markdown-body h1:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h2:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h3:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h4:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h5:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section .markdown-body h6:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section h1:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section h2:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section h3:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section h4:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section h5:hover .anchor .octicon-link,article#presentation > svg > foreignObject > section h6:hover .anchor .octicon-link{visibility:visible}article#presentation > svg > foreignObject > section .markdown-body h1,article#presentation > svg > foreignObject > section h1{padding-bottom:.3em;font-size:2em;border-bottom:1px solid #eaecef}article#presentation > svg > foreignObject > section .markdown-body h2,article#presentation > svg > foreignObject > section h2{padding-bottom:.3em;font-size:1.5em;border-bottom:1px solid #eaecef}article#presentation > svg > foreignObject > section .markdown-body h3,article#presentation > svg > foreignObject > section h3{font-size:1.25em}article#presentation > svg > foreignObject > section .markdown-body h4,article#presentation > svg > foreignObject > section h4{font-size:1em}article#presentation > svg > foreignObject > section .markdown-body h5,article#presentation > svg > foreignObject > section h5{font-size:.875em}article#presentation > svg > foreignObject > section .markdown-body h6,article#presentation > svg > foreignObject > section h6{font-size:.85em;color:#6a737d}article#presentation > svg > foreignObject > section .markdown-body ol,article#presentation > svg > foreignObject > section .markdown-body ul,article#presentation > svg > foreignObject > section ol,article#presentation > svg > foreignObject > section ul{padding-left:2em}article#presentation > svg > foreignObject > section .markdown-body ol ol,article#presentation > svg > foreignObject > section .markdown-body ol ul,article#presentation > svg > foreignObject > section .markdown-body ul ol,article#presentation > svg > foreignObject > section .markdown-body ul ul,article#presentation > svg > foreignObject > section ol ol,article#presentation > svg > foreignObject > section ol ul,article#presentation > svg > foreignObject > section ul ol,article#presentation > svg > foreignObject > section ul ul{margin-top:0;margin-bottom:0}article#presentation > svg > foreignObject > section .markdown-body li,article#presentation > svg > foreignObject > section li{word-wrap:break-all}article#presentation > svg > foreignObject > section .markdown-body li>p,article#presentation > svg > foreignObject > section li>p{margin-top:16px}article#presentation > svg > foreignObject > section .markdown-body li+li,article#presentation > svg > foreignObject > section li+li{margin-top:.25em}article#presentation > svg > foreignObject > section .markdown-body dl,article#presentation > svg > foreignObject > section dl{padding:0}article#presentation > svg > foreignObject > section .markdown-body dl dt,article#presentation > svg > foreignObject > section dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:600}article#presentation > svg > foreignObject > section .markdown-body dl dd,article#presentation > svg > foreignObject > section dl dd{padding:0 16px;margin-bottom:16px}article#presentation > svg > foreignObject > section .markdown-body table,article#presentation > svg > foreignObject > section table{display:block;width:100%;overflow:auto}article#presentation > svg > foreignObject > section .markdown-body table th,article#presentation > svg > foreignObject > section table th{font-weight:600}article#presentation > svg > foreignObject > section .markdown-body table td,article#presentation > svg > foreignObject > section .markdown-body table th,article#presentation > svg > foreignObject > section table td,article#presentation > svg > foreignObject > section table th{padding:6px 13px;border:1px solid #dfe2e5}article#presentation > svg > foreignObject > section .markdown-body table tr,article#presentation > svg > foreignObject > section table tr{background-color:#fff;border-top:1px solid #c6cbd1}article#presentation > svg > foreignObject > section .markdown-body table tr:nth-child(2n),article#presentation > svg > foreignObject > section table tr:nth-child(2n){background-color:#f6f8fa}article#presentation > svg > foreignObject > section .markdown-body img,article#presentation > svg > foreignObject > section img{max-width:100%;box-sizing:content-box;background-color:#fff}article#presentation > svg > foreignObject > section .markdown-body img[align=right],article#presentation > svg > foreignObject > section img[align=right]{padding-left:20px}article#presentation > svg > foreignObject > section .markdown-body img[align=left],article#presentation > svg > foreignObject > section img[align=left]{padding-right:20px}article#presentation > svg > foreignObject > section .markdown-body code,article#presentation > svg > foreignObject > section code{padding:.2em .4em;margin:0;font-size:85%;background-color:rgba(27,31,35,.05);border-radius:3px}article#presentation > svg > foreignObject > section .markdown-body pre,article#presentation > svg > foreignObject > section pre{word-wrap:normal}article#presentation > svg > foreignObject > section .markdown-body pre>code,article#presentation > svg > foreignObject > section pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}article#presentation > svg > foreignObject > section .markdown-body .highlight,article#presentation > svg > foreignObject > section .highlight{margin-bottom:16px}article#presentation > svg > foreignObject > section .markdown-body .highlight pre,article#presentation > svg > foreignObject > section .highlight pre{margin-bottom:0;word-break:normal}article#presentation > svg > foreignObject > section .markdown-body .highlight pre,article#presentation > svg > foreignObject > section .markdown-body pre,article#presentation > svg > foreignObject > section .highlight pre,article#presentation > svg > foreignObject > section pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f6f8fa;border-radius:3px}article#presentation > svg > foreignObject > section .markdown-body pre code,article#presentation > svg > foreignObject > section pre code{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}article#presentation > svg > foreignObject > section .markdown-body .full-commit .btn-outline:not(:disabled):hover,article#presentation > svg > foreignObject > section .full-commit .btn-outline:not(:disabled):hover{color:#005cc5;border-color:#005cc5}article#presentation > svg > foreignObject > section .markdown-body kbd,article#presentation > svg > foreignObject > section kbd{display:inline-block;padding:3px 5px;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;line-height:10px;color:#444d56;vertical-align:middle;background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1}article#presentation > svg > foreignObject > section .markdown-body :checked+.radio-label,article#presentation > svg > foreignObject > section :checked+.radio-label{position:relative;z-index:1;border-color:#0366d6}article#presentation > svg > foreignObject > section .markdown-body .task-list-item,article#presentation > svg > foreignObject > section .task-list-item{list-style-type:none}article#presentation > svg > foreignObject > section .markdown-body .task-list-item+.task-list-item,article#presentation > svg > foreignObject > section .task-list-item+.task-list-item{margin-top:3px}article#presentation > svg > foreignObject > section .markdown-body .task-list-item input,article#presentation > svg > foreignObject > section .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}article#presentation > svg > foreignObject > section .markdown-body hr,article#presentation > svg > foreignObject > section hr{border-bottom-color:#eee}article#presentation > svg > foreignObject > section .hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}article#presentation > svg > foreignObject > section .hljs-comment,article#presentation > svg > foreignObject > section .hljs-meta{color:#969896}article#presentation > svg > foreignObject > section .hljs-emphasis,article#presentation > svg > foreignObject > section .hljs-quote,article#presentation > svg > foreignObject > section .hljs-string,article#presentation > svg > foreignObject > section .hljs-strong,article#presentation > svg > foreignObject > section .hljs-template-variable,article#presentation > svg > foreignObject > section .hljs-variable{color:#df5000}article#presentation > svg > foreignObject > section .hljs-keyword,article#presentation > svg > foreignObject > section .hljs-selector-tag,article#presentation > svg > foreignObject > section .hljs-type{color:#a71d5d}article#presentation > svg > foreignObject > section .hljs-attribute,article#presentation > svg > foreignObject > section .hljs-bullet,article#presentation > svg > foreignObject > section .hljs-literal,article#presentation > svg > foreignObject > section .hljs-symbol{color:#0086b3}article#presentation > svg > foreignObject > section .hljs-name,article#presentation > svg > foreignObject > section .hljs-section{color:#63a35c}article#presentation > svg > foreignObject > section .hljs-tag{color:#333}article#presentation > svg > foreignObject > section .hljs-attr,article#presentation > svg > foreignObject > section .hljs-selector-attr,article#presentation > svg > foreignObject > section .hljs-selector-class,article#presentation > svg > foreignObject > section .hljs-selector-id,article#presentation > svg > foreignObject > section .hljs-selector-pseudo,article#presentation > svg > foreignObject > section .hljs-title{color:#795da3}article#presentation > svg > foreignObject > section .hljs-addition{color:#55a532;background-color:#eaffea}article#presentation > svg > foreignObject > section .hljs-deletion{color:#bd2c00;background-color:#ffecec}article#presentation > svg > foreignObject > section .hljs-link{text-decoration:underline}article#presentation > svg > foreignObject > section svg[data-marp-fitting=svg]{max-height:563px}article#presentation > svg > foreignObject > section h1{color:#246;font-size:1.6em}article#presentation > svg > foreignObject > section h1,article#presentation > svg > foreignObject > section h2{border-bottom:none}article#presentation > svg > foreignObject > section h2{font-size:1.3em}article#presentation > svg > foreignObject > section h3{font-size:1.1em}article#presentation > svg > foreignObject > section h4{font-size:1.05em}article#presentation > svg > foreignObject > section h5{font-size:1em}article#presentation > svg > foreignObject > section h6{font-size:.9em}article#presentation > svg > foreignObject > section hr{height:0;padding-top:.25em}article#presentation > svg > foreignObject > section pre{border:1px solid #999;line-height:1.15}article#presentation > svg > foreignObject > section pre code svg[data-marp-fitting=svg]{max-height:529px}article#presentation > svg > foreignObject > section footer,article#presentation > svg > foreignObject > section header{margin:0;position:absolute;left:30px;color:hsla(0,0%,40%,.75);font-size:18px}article#presentation > svg > foreignObject > section header{top:21px}article#presentation > svg > foreignObject > section footer{bottom:21px}article#presentation > svg > foreignObject > section{align-items:stretch;background:#fff;display:flex;flex-direction:column;flex-wrap:nowrap;font-size:29px;height:720px;justify-content:center;padding:78.5px;width:1280px}article#presentation > svg > foreignObject > section>:last-child,article#presentation > svg > foreignObject > section[data-footer]>:nth-last-child(2){margin-bottom:0}article#presentation > svg > foreignObject > section>:first-child,article#presentation > svg > foreignObject > section>header:first-child+*{margin-top:0}article#presentation > svg > foreignObject > section:after{position:absolute;padding:0;right:30px;bottom:21px;font-size:24px;color:#777}article#presentation > svg > foreignObject > section.invert{background-color:#222;color:#e6eaf0}article#presentation > svg > foreignObject > section.invert:after{color:#999}article#presentation > svg > foreignObject > section.invert img{background-color:transparent}article#presentation > svg > foreignObject > section.invert a{color:#50b3ff}article#presentation > svg > foreignObject > section.invert h1{color:#a3c5e7}article#presentation > svg > foreignObject > section.invert h2,article#presentation > svg > foreignObject > section.invert h3,article#presentation > svg > foreignObject > section.invert h4,article#presentation > svg > foreignObject > section.invert h5{color:#ebeff5}article#presentation > svg > foreignObject > section.invert blockquote,article#presentation > svg > foreignObject > section.invert h6{border-color:#3d3f43;color:#939699}article#presentation > svg > foreignObject > section.invert hr{background-color:#3d3f43}article#presentation > svg > foreignObject > section.invert footer,article#presentation > svg > foreignObject > section.invert header{color:hsla(0,0%,60%,.75)}article#presentation > svg > foreignObject > section.invert code,article#presentation > svg > foreignObject > section.invert kbd{background-color:#111}article#presentation > svg > foreignObject > section.invert kbd{border-color:#666;box-shadow:inset 0 -1px 0 #555;color:#e6eaf0}article#presentation > svg > foreignObject > section.invert table tr{background-color:#12181d;border-color:#60657b}article#presentation > svg > foreignObject > section.invert table tr:nth-child(2n){background-color:#1b2024}article#presentation > svg > foreignObject > section.invert table td,article#presentation > svg > foreignObject > section.invert table th{border-color:#5b5e61}article#presentation > svg > foreignObject > section.invert pre{background-color:#0a0e12;border-color:#777}article#presentation > svg > foreignObject > section.invert pre code{background-color:transparent}article#presentation > svg > foreignObject > section[data-color] h1,article#presentation > svg > foreignObject > section[data-color] h2,article#presentation > svg > foreignObject > section[data-color] h3,article#presentation > svg > foreignObject > section[data-color] h4,article#presentation > svg > foreignObject > section[data-color] h5,article#presentation > svg > foreignObject > section[data-color] h6{color:currentColor}/* @theme marpit-theme */article#presentation > svg > foreignObject > section.lead h1 {
+  text-align: center;
+  margin: 30px !important;
+}article#presentation > svg > foreignObject > section.lead h2 {
+  padding-top: 30px !important;
+  padding-bottom: 30px !important;
+}article#presentation > svg > foreignObject > section {
+  width: 1280px;
+  height: 960px;
+  font-size: 40px;
+  padding: 50px;
+  padding-top: 30px;
+  display: block;
+}article#presentation > svg > foreignObject > section h1 {
+  font-size: 60px;
+  color: #09c;
+  padding-bottom: 0px !important;
+  margin-bottom: 0px !important;
+}article#presentation > svg > foreignObject > section h2 {
+  font-size: 50px;
+  padding-bottom: 0px !important;
+  margin-top: 0px;
+  margin-bottom: 0px !important;
+}article#presentation > svg > foreignObject > section footer {
+    top: 650px;
+    left: 50px;
+    right: 80px;
+    font-size: 24px;
+    line-height: 36px;
+}article#presentation > svg > foreignObject > section img {
+    max-height: 470px;
+    max-width: 100%;
+}article#presentation > svg > foreignObject > section.center p {
+    text-align: center;
+    align-content: center;
+}article#presentation > svg > foreignObject > section::after {
+  bottom: 0;
+  content: attr(data-marpit-pagination);
+  padding: inherit;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 620px;
+}article#presentation > svg > foreignObject > section.lead::after {
+    display: none;
+}article#presentation > svg > foreignObject > section:not([data-marpit-pagination])::after {
+  display: none;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"] {
+  padding: 0 !important;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"]::before,
+article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"]::after,
+article#presentation > svg > foreignObject > section[data-marpit-advanced-background="content"]::before,
+article#presentation > svg > foreignObject > section[data-marpit-advanced-background="content"]::after {
+  display: none !important;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"] > div[data-marpit-advanced-background-container] {
+  all: initial;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"][data-marpit-advanced-background-split] > div[data-marpit-advanced-background-container] {
+  width: 50%;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"][data-marpit-advanced-background-split="right"] > div[data-marpit-advanced-background-container] {
+  margin-left: 50%;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="background"] > div[data-marpit-advanced-background-container] > figure {
+  all: initial;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex: auto;
+  margin: 0;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="content"],
+article#presentation > svg > foreignObject > section[data-marpit-advanced-background="pseudo"] {
+  background: transparent !important;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background="pseudo"],
+article#presentation > svg > foreignObject[data-marpit-advanced-background="pseudo"] {
+  pointer-events: none !important;
+}article#presentation > svg > foreignObject > section[data-marpit-advanced-background-split] {
+  width: 100%;
+  height: 100%;
+}</style></head><body><article id="presentation"><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="1" data-paginate="true" data-class="lead" class="lead" data-marpit-pagination="1" style="--paginate:true;--class:lead;">
+<h1>Apache.JMeter в большом проекте</h1>
+<h2>Performance на каждый день</h2>
+<h2>Смирнов Вячеслав</h2>
+<p>Эксперт по тестированию Райффайзен БАНК</p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-marpit-pagination="2" style="--paginate:true;">
+<h1>Цель</h1>
+<p>CI/CD для тестирования производительности:</p>
+<ul>
+<li>подавать высокую нагрузку</li>
+<li>автоматизировать выполнение теста</li>
+<li>уложиться в возможности сборочного агента</li>
+</ul>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-footer="https://habr.com/company/raiffeisenbank/blog/342126/ &lt;br&gt;Централизованный сontinuous deployment за год (2017-11) Максим Ефимов @WaRm" data-class="center" class="center" data-marpit-pagination="3" style="--paginate:true;--class:center;">
+<h1>Continuous deployment</h1>
+<p><img src="img/ci_cd_components.jpeg" alt="width:100% height:100%" /></p>
+<footer><a href="https://habr.com/company/raiffeisenbank/blog/342126/">https://habr.com/company/raiffeisenbank/blog/342126/</a> <br>Централизованный сontinuous deployment за год (2017-11) Максим Ефимов @WaRm</footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-footer="https://habr.com/company/raiffeisenbank/blog/350986/ &lt;br&gt;Централизованный сontinuous deployment за год vol 2 (2018-03) Константин Курочкин @kkurochkin" data-class="center" class="center" data-marpit-pagination="4" style="--paginate:true;--class:center;">
+<h1>Continuous deployment</h1>
+<p><img src="img/ci_cd_habr.png" alt="width:100% height:100%" /></p>
+<footer><a href="https://habr.com/company/raiffeisenbank/blog/350986/">https://habr.com/company/raiffeisenbank/blog/350986/</a> <br>Централизованный сontinuous deployment за год vol 2 (2018-03) Константин Курочкин @kkurochkin</footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-footer="https://www.atlassian.com/continuous-delivery/ci-vs-ci-vs-cd &lt;br&gt;Continuous integration vs. continuous delivery vs. continuous deployment (2017-11) Sten Pittet" data-class="center" class="center" data-marpit-pagination="5" style="--paginate:true;--class:center;">
+<h1>Планируемый процесс</h1>
+<p><img src="img/ci_cd_plans.png" alt="fit" /></p>
+<footer><a href="https://www.atlassian.com/continuous-delivery/ci-vs-ci-vs-cd">https://www.atlassian.com/continuous-delivery/ci-vs-ci-vs-cd</a> <br>Continuous integration vs. continuous delivery vs. continuous deployment (2017-11) Sten Pittet</footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-class="center" class="center" data-marpit-pagination="6" style="--paginate:true;--class:center;">
+<h1>Performance на каждый день</h1>
+<p><img src="img/Performance_test_in_CI_small.png" alt="width:100% height:100%" /></p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-class="center" class="center" data-marpit-pagination="7" style="--paginate:true;--class:center;">
+<h1>Автоматизация сборки и настройки</h1>
+<p><img src="img/Performance_test_in_CI_automation.png" alt="width:100% height:100%" /></p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-marpit-pagination="8" style="--paginate:true;">
+<h1>Автоматизация сборки и настройки</h1>
+<h2>Что делал</h2>
+<ul>
+<li>Скрипты JMeter (без библиотек и плагинов)</li>
+<li>Скрипты JMeter + каталог с зависимостями</li>
+<li>Скрипты JMeter + jmeter-maven-plugin</li>
+</ul>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-class="center" data-footer="Скрипт с плагинами" class="center" data-marpit-pagination="9" style="--paginate:true;--class:center;--footer:Скрипт с плагинами;"><h1><strike>Автоматизация</strike> сборки и настройки</h1>
+<h2>Скрипты JMeter (без библиотек и плагинов)</h2>
+<p><img src="img/Apache.JMeter.Script.png" alt="" /></p>
+<footer>Скрипт с плагинами</footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-class="center" data-footer="Отсутствующие популярные плагины можно докачать" class="center" data-marpit-pagination="10" style="--paginate:true;--class:center;--footer:Отсутствующие популярные плагины можно докачать;"><h1><strike>Автоматизация</strike> сборки и настройки</h1>
+<h2>Скрипты JMeter (без библиотек и плагинов)</h2>
+<p><img src="img/Apache.JMeter.5.0.plugin.check.png" alt="" /></p>
+<footer>Отсутствующие популярные плагины можно докачать</footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-class="center" class="center" data-marpit-pagination="11" style="--paginate:true;--class:center;">
+<h1>Автоматизация сборки и настройки</h1>
+<h2>Скрипт JMeter + каталог с зависимостями</h2>
+<p><img src="img/jmeter.libs.png" alt="fit" /></p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-class="center" class="center" data-marpit-pagination="12" style="--paginate:true;--class:center;">
+<h1>Автоматизация сборки и настройки</h1>
+<h2>Скрипт JMeter + каталог с зависимостями</h2>
+<p><img src="img/jmeter.plugins.and.libs.png" alt="fit" /></p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-marpit-pagination="13" style="--paginate:true;">
+<h1>Автоматизация сборки и настройки</h1>
+<h2>Скрипт JMeter + каталог с зависимостями</h2>
+<ul>
+<li>../libs/
+<ul>
+<li>com.ibm.mq.jar</li>
+</ul>
+</li>
+<li>../plugins/
+<ul>
+<li>jpgc-casutg-2.6/
+<ul>
+<li>jmeter-plugins-casutg-2.6.jar</li>
+</ul>
+</li>
+<li>jpgc-casutg-2.6.libs/
+<ul>
+<li>jmeter-plugins-cmn-jmeter-0.4.jar</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-marpit-pagination="14" style="--paginate:true;">
+<h1>Автоматизация сборки и настройки</h1>
+<h2>Скрипт JMeter + каталог с зависимостями</h2>
+<ul>
+<li>../libs/
+<ul>
+<li>com.ibm.mq.jar <strong>(user.classpath)</strong></li>
+</ul>
+</li>
+<li>../plugins/
+<ul>
+<li>jpgc-casutg-2.6/lib/ext/ <strong>(search.paths)</strong>
+<ul>
+<li>jmeter-plugins-casutg-2.6.jar</li>
+</ul>
+</li>
+<li>jpgc-casutg-2.6/lib/ <strong>(plugin_dependency_paths)</strong>
+<ul>
+<li>jmeter-plugins-cmn-jmeter-0.4.jar</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-marpit-pagination="15" style="--paginate:true;">
+<h1>Автоматизация сборки и настройки</h1>
+<h2>Скрипт JMeter + каталог с зависимостями</h2>
+<pre><code><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap><span class="hljs-comment"># Плагины</span>
+search.paths=../plugins/jpgc-casutg-<span class="hljs-number">2.6</span>/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">ext</span></span>
+
+<span class="hljs-comment"># Зависимости плагинов</span>
+plugin_dependency_paths=../plugins/jpgc-casutg-<span class="hljs-number">2.6</span>/<span class="hljs-class"><span class="hljs-keyword">lib</span></span>
+
+<span class="hljs-comment"># Библиотеки для Groovy-скриптов (JSR-223), для невизуальных компонентов</span>
+user.classpath=../libs/com.ibm.mq-<span class="hljs-number">9.0</span>.<span class="hljs-number">2.987123</span>.jar;../libs/com.ibm.mqjms-<span class="hljs-number">9.0</span>.<span class="hljs-number">2.987123</span>.jar
+</span></span></foreignObject></svg></code></pre>
+<p>Property-файл передаётся в JMeter при запуске скрипта</p>
+<pre><code><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap> -G[propertyfile]
+    defines <span class="hljs-keyword">a</span> <span class="hljs-built_in">file</span> containing JMeter properties <span class="hljs-built_in">to</span> be sent <span class="hljs-built_in">to</span> all remote servers.
+ -p, <span class="hljs-comment">--propfile &lt;argument&gt;</span>
+    <span class="hljs-keyword">the</span> jmeter property <span class="hljs-built_in">file</span> <span class="hljs-built_in">to</span> uses
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-footer="https://github.com/jmeter-maven-plugin/jmeter-maven-plugin &lt;br&gt;(2010-10 – ...) Mark Collin @Ardesco, Philippe M @pmouawad&lt;/nobr&gt;" data-marpit-pagination="16" style="--paginate:true;">
+<h1>Автоматизация сборки и настройки</h1>
+<h2>Скрипт JMeter + jmeter-maven-plugin</h2>
+<pre><code><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap>+---+
+<span class="hljs-tag">&lt;<span class="hljs-name">project</span>&gt;</span>
+    [...]
+        <span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.lazerycode.jmeter<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jmeter-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>USE LAST VERSION<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">executions</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">execution</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>jmeter-tests<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">goals</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name">goal</span>&gt;</span>jmeter<span class="hljs-tag">&lt;/<span class="hljs-name">goal</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">goals</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">execution</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">executions</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">jmeterExtensions</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name">artifact</span>&gt;</span>kg.apc:jmeter-plugins-casutg:2.4<span class="hljs-tag">&lt;/<span class="hljs-name">artifact</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">jmeterExtensions</span>&gt;</span>
+                        <span class="hljs-comment">&lt;!-- The plugin uses some broken dependencies. An alternative is to set this to true and use excludedArtifacts, see below  --&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">downloadExtensionDependencies</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">downloadExtensionDependencies</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span>
+    [...]
+<span class="hljs-tag">&lt;/<span class="hljs-name">project</span>&gt;</span>
++---+
+</span></span></foreignObject></svg></code></pre>
+<footer><a href="https://github.com/jmeter-maven-plugin/jmeter-maven-plugin">https://github.com/jmeter-maven-plugin/jmeter-maven-plugin</a> <br>(2010-10 – ...) Mark Collin @Ardesco, Philippe M @pmouawad</nobr></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-marpit-pagination="17" style="--paginate:true;">
+<h1>Автоматизация сборки и настройки</h1>
+<h2>Что видел</h2>
+<ul>
+<li>Скрипты JMeter + единый дистрибутив</li>
+<li>Docker-контейнеры с Apache.JMeter</li>
+</ul>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-class="center" data-footer="https://habr.com/post/342380/ &lt;br&gt;Нагрузочное тестирование, история автоматизации процесса (2017-11) Герман Сёмин @v0devil" class="center" data-marpit-pagination="18" style="--paginate:true;--class:center;">
+<h1>Автоматизация сборки и настройки</h1>
+<h2>Скрипты JMeter + единый дистрибутив</h2>
+<p><img src="img/JMeter-Control-Center-model.png" alt="fit" /></p>
+<footer><a href="https://habr.com/post/342380/">https://habr.com/post/342380/</a> <br>Нагрузочное тестирование, история автоматизации процесса (2017-11) Герман Сёмин @v0devil</footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-class="center" data-footer="https://github.com/innogames/JMeter-Control-Center &lt;br&gt;(2016-12 – ...) German Syomin @v0devil" class="center" data-marpit-pagination="19" style="--paginate:true;--class:center;">
+<h1>Автоматизация сборки и настройки</h1>
+<h2>Скрипты JMeter + единый дистрибутив</h2>
+<p><img src="img/JMeter-Control-Center-controller.png" alt="fit" /></p>
+<footer><a href="https://github.com/innogames/JMeter-Control-Center">https://github.com/innogames/JMeter-Control-Center</a> <br>(2016-12 – ...) German Syomin @v0devil</footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-marpit-pagination="20" style="--paginate:true;">
+<h1>Автоматизация сборки и настройки</h1>
+<h2>Выбрал maven</h2>
+<ul>
+<li>jar-файлы в <a href="http://maven.org">maven.org</a> или artifactory;</li>
+<li>точность версий jar-файлов;</li>
+<li>в git только код и скрипты;</li>
+<li>точность настройки теста;</li>
+<li>простота запуска теста;</li>
+<li><img data-marp-twemoji draggable="false" alt="🤔" src="https://twemoji.maxcdn.com/2/svg/1f914.svg"/> знание maven (xml).</li>
+</ul>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-class="center" class="center" data-marpit-pagination="21" style="--paginate:true;--class:center;">
+<h1>Инструменты подачи нагрузки</h1>
+<p><img src="img/Performance_test_in_CI_instruments.png" alt="" /></p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-class="center" data-footer="https://trends.google.com/trends/explore?geo=RU&amp;q=%2Fm%2F04ypch,%2Fm%2F0swkqjz" class="center" data-marpit-pagination="22" style="--paginate:true;--class:center;">
+<h1>Инструменты подачи нагрузки</h1>
+<p><img src="img/JMeter.vs.Gatling.From.Google.Trends.png" alt="" /><br />
+В России через Google ищут JMeter в 10 раз чаще, чем Gatling</p>
+<footer><a href="https://trends.google.com/trends/explore?geo=RU&amp;q=%2Fm%2F04ypch,%2Fm%2F0swkqjz">https://trends.google.com/trends/explore?geo=RU&amp;q=%2Fm%2F04ypch,%2Fm%2F0swkqjz</a></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-class="center" class="center" data-marpit-pagination="23" style="--paginate:true;--class:center;">
+<h1>Инструменты подачи нагрузки</h1>
+<p><img src="img/Performance_test_in_CI_instruments_JMeter.png" alt="" /></p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-marpit-pagination="24" style="--paginate:true;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>Поиск пределов</h2>
+<pre><code><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap>$ ./run.sh ./script<span class="hljs-number">.01</span>.Thread_Group.jmx --nongui
+Creating summariser &lt;summary&gt;
+Created the tree successfully using ./script<span class="hljs-number">.01</span>.Thread_Group.jmx
+Starting the test @ Mon Oct <span class="hljs-number">01</span> <span class="hljs-number">17</span>:<span class="hljs-number">21</span>:<span class="hljs-number">27</span> MSK <span class="hljs-number">2018</span> (<span class="hljs-number">1538403687382</span>)
+Waiting <span class="hljs-keyword">for</span> possible Shutdown/StopTestNow/Heapdump message on port <span class="hljs-number">4445</span>
+summary +     <span class="hljs-number">19</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">02</span> =    <span class="hljs-number">7.7</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:     <span class="hljs-number">2</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%) Active: <span class="hljs-number">1</span> Started: <span class="hljs-number">10</span> Finished: <span class="hljs-number">9</span>
+summary +    <span class="hljs-number">256</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">30</span> =    <span class="hljs-number">8.6</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:    <span class="hljs-number">12</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%) Active: <span class="hljs-number">2</span> Started: <span class="hljs-number">139</span> Finished: <span class="hljs-number">137</span>
+summary =    <span class="hljs-number">275</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">32</span> =    <span class="hljs-number">8.5</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:    <span class="hljs-number">12</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%)
+summary +    <span class="hljs-number">498</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">30</span> =   <span class="hljs-number">16.6</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:     <span class="hljs-number">2</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%) Active: <span class="hljs-number">3</span> Started: <span class="hljs-number">389</span> Finished: <span class="hljs-number">386</span>
+summary =    <span class="hljs-number">773</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">01</span>:<span class="hljs-number">02</span> =   <span class="hljs-number">12.4</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:    <span class="hljs-number">12</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%)
+summary +    <span class="hljs-number">738</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">30</span> =   <span class="hljs-number">24.6</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:    <span class="hljs-number">19</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%) Active: <span class="hljs-number">2</span> Started: <span class="hljs-number">757</span> Finished: <span class="hljs-number">755</span>
+summary =   <span class="hljs-number">1511</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">01</span>:<span class="hljs-number">32</span> =   <span class="hljs-number">16.4</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:    <span class="hljs-number">19</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%)
+summary +    <span class="hljs-number">976</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">30</span> =   <span class="hljs-number">32.6</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:    <span class="hljs-number">17</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%) Active: <span class="hljs-number">2</span> Started: <span class="hljs-number">1245</span> Finished: <span class="hljs-number">1243</span>
+summary =   <span class="hljs-number">2487</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">02</span>:<span class="hljs-number">02</span> =   <span class="hljs-number">20.3</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:    <span class="hljs-number">19</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%)
+summary +   <span class="hljs-number">1214</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">30</span> =   <span class="hljs-number">40.4</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:     <span class="hljs-number">1</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%) Active: <span class="hljs-number">4</span> Started: <span class="hljs-number">1854</span> Finished: <span class="hljs-number">1850</span>
+summary =   <span class="hljs-number">3701</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">02</span>:<span class="hljs-number">32</span> =   <span class="hljs-number">24.3</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:    <span class="hljs-number">19</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%)
+summary +   <span class="hljs-number">1454</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">30</span> =   <span class="hljs-number">48.5</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:     <span class="hljs-number">2</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%) Active: <span class="hljs-number">3</span> Started: <span class="hljs-number">2580</span> Finished: <span class="hljs-number">2577</span>
+summary =   <span class="hljs-number">5155</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">03</span>:<span class="hljs-number">02</span> =   <span class="hljs-number">28.3</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:    <span class="hljs-number">19</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%)
+summary +   <span class="hljs-number">1684</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">30</span> =   <span class="hljs-number">56.1</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:     <span class="hljs-number">2</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%) Active: <span class="hljs-number">8</span> Started: <span class="hljs-number">3427</span> Finished: <span class="hljs-number">3419</span>
+summary =   <span class="hljs-number">6839</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">03</span>:<span class="hljs-number">32</span> =   <span class="hljs-number">32.2</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:    <span class="hljs-number">19</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%)
+summary +    <span class="hljs-number">488</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">30</span> =   <span class="hljs-number">16.1</span>/s Avg:     <span class="hljs-number">2</span> Min:     <span class="hljs-number">0</span> Max:   <span class="hljs-number">361</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%) Active: <span class="hljs-number">155</span> Started: <span class="hljs-number">3818</span> Finished: <span class="hljs-number">3663</span>
+summary =   <span class="hljs-number">7327</span> <span class="hljs-keyword">in</span> <span class="hljs-number">00</span>:<span class="hljs-number">04</span>:<span class="hljs-number">03</span> =   <span class="hljs-number">30.2</span>/s Avg:     <span class="hljs-number">0</span> Min:     <span class="hljs-number">0</span> Max:   <span class="hljs-number">361</span> Err:     <span class="hljs-number">0</span> (<span class="hljs-number">0.00</span>%)
+java.lang.OutOfMemoryError: Java heap space
+Dumping heap to java_pid21386.hprof ...
+Heap dump file created [<span class="hljs-number">2723488978</span> bytes <span class="hljs-keyword">in</span> <span class="hljs-number">41</span>,<span class="hljs-number">828</span> secs]
+Killed
+</span></span></foreignObject></svg></code></pre>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-marpit-pagination="25" style="--paginate:true;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>Поиск пределов</h2>
+<p>Мониторинг java-процесса:</p>
+<ul>
+<li>оперативная память <code>memory_rss</code>, <code>memory_swap</code> и <code>memory_stack</code></li>
+<li>процессор <code>cpu_usage</code></li>
+<li>количество потоков <code>num_threads</code></li>
+</ul>
+<p>telegraf:</p>
+<ul>
+<li>inputs.procstat: <code>pattern: &quot;java.+/ApacheJMeter&quot;</code></li>
+</ul>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-marpit-pagination="26" style="--paginate:true;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>Оптимизации</h2>
+<ul>
+<li><code>[-]</code> Debug Sampler</li>
+<li><code>[-]</code> Thread Group, Generate Parent Sampler</li>
+<li><code>[-]</code> XPath Extractor</li>
+<li><code>[+]</code> nonGuiMode</li>
+<li><code>[+]</code> Regular Expression Extractor</li>
+<li>создавать минимальное количество потоков</li>
+</ul>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-class="center" data-footer="https://loadtestweb.wordpress.com/2017/08/23/pacing/" class="center" data-marpit-pagination="27" style="--paginate:true;--class:center;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>Оптимизации</h2>
+<p><img src="img/load2.png" alt="" /></p>
+<footer><a href="https://loadtestweb.wordpress.com/2017/08/23/pacing/">https://loadtestweb.wordpress.com/2017/08/23/pacing/</a></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-class="center" data-footer="https://loadtestweb.wordpress.com/2017/08/23/pacing/" class="center" data-marpit-pagination="28" style="--paginate:true;--class:center;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>Оптимизации</h2>
+<p><img src="img/pacing-calculator-excel1.png" alt="" /></p>
+<footer><a href="https://loadtestweb.wordpress.com/2017/08/23/pacing/">https://loadtestweb.wordpress.com/2017/08/23/pacing/</a></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-class="center" data-footer="https://jmeter-plugins.org/wiki/ThroughputShapingTimer/" class="center" data-marpit-pagination="29" style="--paginate:true;--class:center;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>Оптимизации</h2>
+<p><img src="img/throughput_shaping_timer1.png" alt="" /></p>
+<footer><a href="https://jmeter-plugins.org/wiki/ThroughputShapingTimer/">https://jmeter-plugins.org/wiki/ThroughputShapingTimer/</a></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-class="center" data-footer="http://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request" class="center" data-marpit-pagination="30" style="--paginate:true;--class:center;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>Большие файлы</h2>
+<p><img src="img/jmeter.file.path.png" alt="" /></p>
+<footer><a href="http://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">http://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request</a></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-class="center" data-footer="http://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request" class="center" data-marpit-pagination="31" style="--paginate:true;--class:center;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>Большие файлы</h2>
+<p><img src="img/jmeter.big.2.png" alt="" /></p>
+<footer><a href="http://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">http://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request</a></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-footer="http://jmeter.apache.org/usermanual/component_reference.html#JMS_Point-to-Point" data-marpit-pagination="32" style="--paginate:true;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>IBM MQ и ожидания</h2>
+<p><img src="img/jmeter.wait.png" alt="" /></p>
+<footer><a href="http://jmeter.apache.org/usermanual/component_reference.html#JMS_Point-to-Point">http://jmeter.apache.org/usermanual/component_reference.html#JMS_Point-to-Point</a></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-footer="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html" data-marpit-pagination="33" style="--paginate:true;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>IBM MQ и ожидания: SharedHashMap</h2>
+<p><img src="img/jmeter.no.wait.png" alt="" /></p>
+<footer><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html">https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html</a></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-footer="http://jmeter.apache.org/usermanual/best-practices.html#sharing_variables" data-marpit-pagination="34" style="--paginate:true;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>IBM MQ и ожидания: SharedHashMap</h2>
+<p><img src="img/jmeter.sharing_variables.png" alt="" /></p>
+<footer><a href="http://jmeter.apache.org/usermanual/best-practices.html#sharing_variables">http://jmeter.apache.org/usermanual/best-practices.html#sharing_variables</a></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-paginate="true" data-footer="http://gatling.io/" data-marpit-pagination="35" style="--paginate:true;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>Gatling</h2>
+<p>Архитектура:</p>
+<ul>
+<li>Scala</li>
+<li>Akka</li>
+<li>Netty</li>
+</ul>
+<footer><a href="http://gatling.io/">http://gatling.io/</a></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-footer="http://gatling.io/" data-marpit-pagination="36" style="--paginate:true;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>Gatling</h2>
+<p>Инструкции:</p>
+<ul>
+<li><a href="https://gatling.io/documentation/">https://gatling.io/documentation/</a></li>
+<li><a href="https://habr.com/company/tinkoff/blog/344818/">https://habr.com/company/tinkoff/blog/344818/</a> *</li>
+<li><a href="https://gatling.io/docs/current/extensions/maven_archetype/">https://gatling.io/docs/current/extensions/maven_archetype/</a></li>
+</ul>
+<footer><a href="http://gatling.io/">http://gatling.io/</a></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-class="center" data-footer="http://gatling.io/" class="center" data-marpit-pagination="37" style="--paginate:true;--class:center;">
+<h1>Инструменты подачи нагрузки</h1>
+<h2>Gatling: Сдвиг влево</h2>
+<p><img src="img/archetype_structure.png" alt="" /></p>
+<footer><a href="http://gatling.io/">http://gatling.io/</a></footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-class="center" class="center" data-marpit-pagination="38" style="--paginate:true;--class:center;">
+<h1>Отчётность</h1>
+<p><img src="img/Performance_test_in_CI_report.png" alt="" /></p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-class="center" class="center" data-marpit-pagination="39" style="--paginate:true;--class:center;">
+<h1>Отчётность</h1>
+<h2>Логи инструментов</h2>
+<p><img src="img/jmeter.html.png" alt="" /></p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="40" data-paginate="true" data-class="center" class="center" data-marpit-pagination="40" style="--paginate:true;--class:center;">
+<h1>Отчётность</h1>
+<h2>Логи инструментов</h2>
+<p><img src="img/gatling.time.png" alt="" /></p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="41" data-paginate="true" data-class="center" class="center" data-marpit-pagination="41" style="--paginate:true;--class:center;">
+<h1>Отчётность</h1>
+<h2>Метрики</h2>
+<p><img src="img/server.diskio.png" alt="" /></p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="42" data-paginate="true" data-class="center" data-footer="https://github.com/influxdata/telegraf/issues/3497 - [influxdata/telegraf] PostgreSQL extensible Parse error when specifying tagvalue=&quot;query&quot; for pg_stat_statements (#3497)" class="center" data-marpit-pagination="42" style="--paginate:true;--class:center;">
+<h1>Отчётность</h1>
+<h2>Метрики</h2>
+<p><img src="img/server.sql.stats.png" alt="" /></p>
+<footer><a href="https://github.com/influxdata/telegraf/issues/3497">https://github.com/influxdata/telegraf/issues/3497</a> - [influxdata/telegraf] PostgreSQL extensible Parse error when specifying tagvalue=&quot;query&quot; for pg_stat_statements (#3497)</footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-class="center" data-footer="https://github.com/influxdata/telegraf/issues/3497 - [influxdata/telegraf] PostgreSQL extensible Parse error when specifying tagvalue=&quot;query&quot; for pg_stat_statements (#3497)" class="center" data-marpit-pagination="43" style="--paginate:true;--class:center;">
+<h1>Отчётность</h1>
+<h2>Метрики</h2>
+<p><img src="img/server.sql.stats.png" alt="" /></p>
+<footer><a href="https://github.com/influxdata/telegraf/issues/3497">https://github.com/influxdata/telegraf/issues/3497</a> - [influxdata/telegraf] PostgreSQL extensible Parse error when specifying tagvalue=&quot;query&quot; for pg_stat_statements (#3497)</footer>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-class="center" class="center" data-marpit-pagination="44" style="--paginate:true;--class:center;">
+<h1>Отчётность</h1>
+<h2>Логи системы</h2>
+<p><img src="img/Log.analyse.png" alt="" /></p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="45" data-paginate="true" data-class="center" class="center" data-marpit-pagination="45" style="--paginate:true;--class:center;">
+<h1>Performance на каждый день</h1>
+<p><img src="img/Performance_test_in_CI.png" alt="width:100% height:100%" /></p>
+</section>
+</foreignObject></svg><svg viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="46" data-paginate="true" data-marpit-pagination="46" style="--paginate:true;">
+<h1>Спасибо</h1>
+<h2>Apache.JMeter в большом проекте</h2>
+<h4>Performance на каждый день</h4>
+<h4>Смирнов Вячеслав</h4>
+<p>Эксперт по тестированию Райффайзен БАНК</p>
+</section>
+</foreignObject></svg></article><script defer>!function(){"use strict";const t="data-marp-fitting",e="data-marp-fitting-code",i="data-marp-fitting-math";function r(){Array.from(document.querySelectorAll(`svg[${t}="svg"]`),t=>{const r=t.firstChild,a=r.firstChild,{scrollWidth:s,scrollHeight:n}=a;let o,l=1;if(t.hasAttribute(e)&&(o=t.parentElement.parentElement),t.hasAttribute(i)&&(o=t.parentElement),o){const t=getComputedStyle(o),e=Math.ceil(o.clientWidth-parseFloat(t.paddingLeft)-parseFloat(t.paddingRight));e&&(l=e)}const c=Math.max(s,l),d=Math.max(n,1),p=`0 0 ${c} ${d}`;r.setAttribute("width",`${c}`),r.setAttribute("height",`${d}`),t.setAttribute("preserveAspectRatio",getComputedStyle(t).getPropertyValue("--preserve-aspect-ratio")||"xMinYMin meet"),t.getAttribute("viewBox")!==p&&(t.setAttribute("viewBox",p),t.classList.toggle("__reflow__"))}),window.requestAnimationFrame(r)}r()}();
+</script><script>!function(){"use strict";var e={from:function(e,t){var n=1===(e.parent||e).nodeType?e.parent||e:document.querySelector(e.parent||e),i=[].filter.call("string"==typeof e.slides?n.querySelectorAll(e.slides):e.slides||n.children,function(e){return"SCRIPT"!==e.nodeName}),o=i[0],r={},a=function(e,t){i[e]&&(l("deactivate",d(o,t)),o=i[e],l("activate",d(o,t)))},s=function(e,t){var n=i.indexOf(o)+e;l(e>0?"next":"prev",d(o,t))&&a(n,t)},c=function(e,t){r[e]=(r[e]||[]).filter(function(e){return e!==t})},l=function(e,t){return(r[e]||[]).reduce(function(e,n){return e&&!1!==n(t)},!0)},d=function(e,t){return(t=t||{}).index=i.indexOf(e),t.slide=e,t},u={on:function(e,t){return(r[e]||(r[e]=[])).push(t),c.bind(null,e,t)},off:c,fire:l,slide:function(e,t){if(!arguments.length)return i.indexOf(o);l("slide",d(i[e],t))&&a(e,t)},next:s.bind(null,1),prev:s.bind(null,-1),parent:n,slides:i};return(t||[]).forEach(function(e){e(u)}),a(0),u}};function t(e){e.parent.classList.add("bespoke-marp-parent"),e.slides.map(e=>e.classList.add("bespoke-marp-slide")),e.on("activate",t=>{e.slides.map(e=>e.classList.remove("bespoke-marp-active")),t.slide.classList.add("bespoke-marp-active")})}function n(e={}){const t=Object.assign({history:!0},e);return e=>{function n(){const t=parseInt(window.location.hash.slice(1),10);Number.isNaN(t)||function(t){const n=Math.max(0,Math.min(t,e.slides.length-1));n!==e.slide()&&e.slide(n)}(t-1)}setTimeout(()=>{n(),e.on("activate",e=>{t.history?window.location.hash=e.index+1:window.location.replace(`#${e.index+1}`)}),window.addEventListener("hashchange",n)},0)}}var i,o=function(e){return function(t){var n="vertical"!==e;document.addEventListener("keydown",function(e){(34==e.which||32==e.which&&!e.shiftKey||n&&39==e.which||!n&&40==e.which)&&t.next(),(33==e.which||32==e.which&&e.shiftKey||n&&37==e.which||!n&&38==e.which)&&t.prev()})}};function r(e={}){const t=Object.assign({interval:200},e);return e=>{o()(e),document.addEventListener("keydown",t=>{35===t.which&&e.slide(e.slides.length-1),36===t.which&&e.slide(0),38===t.which&&e.prev(),40===t.which&&e.next()});let n,r,a=0;e.parent.addEventListener("wheel",o=>{let s=!1;const c=(e,t)=>{e&&(s=s||function(e,t){return function(e,t){const n=t===i.X?"Width":"Height";return e[`client${n}`]<e[`scroll${n}`]}(e,t)&&function(e,t){const{overflow:n}=e,i=e[`overflow${t}`];return"auto"===n||"scroll"===n||"auto"===i||"scroll"===i}(getComputedStyle(e),t)}(e,t)),e&&e.parentElement&&c(e.parentElement,t)};if(0!==o.deltaX&&c(o.target,i.X),0!==o.deltaY&&c(o.target,i.Y),s)return;o.preventDefault(),r&&clearTimeout(r),r=setTimeout(()=>{n=0},t.interval);const l=Date.now()-a<t.interval,d=Math.sqrt(Math.pow(o.deltaX,2)+Math.pow(o.deltaY,2)),u=d<=n;if(n=d,l||u)return;let h;(o.deltaX>0||o.deltaY>0)&&(h="next"),(o.deltaX<0||o.deltaY<0)&&(h="prev"),h&&(e[h](),a=Date.now())})}}!function(e){e.X="X",e.Y="Y"}(i||(i={}));const a=".bespoke-progress-parent > .bespoke-progress-bar";function s(e){e.on("activate",t=>{document.querySelectorAll(a).forEach(n=>{n.style.flexBasis=`${100*t.index/(e.slides.length-1)}%`})})}e.from(document.getElementById("presentation"),[t,function(e=2e3){return t=>{let n;function i(){n&&clearTimeout(n),n=setTimeout(()=>{t.parent.classList.add("bespoke-marp-cursor-inactive")},e),t.parent.classList.remove("bespoke-marp-cursor-inactive")}document.addEventListener("mousedown",i),document.addEventListener("mousemove",i),setTimeout(i,0)}}(),n({history:!1}),r(),s,function(e={}){const t=Object.assign({slope:Math.tan(-35*Math.PI/180),swipeThreshold:30},e);return e=>{let n;const i=e.parent,o=e=>{const t=i.getBoundingClientRect();return{x:e.pageX-(t.left+t.right)/2,y:e.pageY-(t.top+t.bottom)/2}};i.addEventListener("touchstart",e=>{n=1===e.touches.length?o(e.touches[0]):void 0}),i.addEventListener("touchmove",e=>{if(n)if(1===e.touches.length){e.preventDefault();const t=o(e.touches[0]),i=t.x-n.x,r=t.y-n.y;n.delta=Math.sqrt(Math.pow(Math.abs(i),2)+Math.pow(Math.abs(r),2)),n.radian=Math.atan2(i,r)}else n=void 0}),i.addEventListener("touchend",()=>{if(n){if(n.delta&&n.delta>=t.swipeThreshold){let i=n.radian-t.slope;i=(i+Math.PI)%(2*Math.PI)-Math.PI,e[i<0?"next":"prev"]()}n=void 0}})}}()])}();
+</script><script>window.__marpCliWatchWS="ws://localhost:52000/b56c3c0e95040913e5a7aa19b18f003f782e983982979d0507f251f1be59a41e";!function(){"use strict";!function(){const e=window.__marpCliWatchWS;e&&new WebSocket(e).addEventListener("message",e=>{"reload"===e.data&&location.reload()})}()}();
+</script></body></html>
