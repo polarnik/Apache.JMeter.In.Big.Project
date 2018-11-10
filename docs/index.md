@@ -3,80 +3,77 @@ _class: lead
 paginate: true
 theme: scaffoldTheme
 html: true
+style: |
+    section.lead h1 {
+      text-align: center;
+      margin: 30px !important;
+    }
+
+    section.lead h2 {
+      padding-top: 30px !important;
+      padding-bottom: 30px !important;
+    }
+
+    section {
+      width: 1280px;
+      height: 960px;
+      font-size: 40px;
+      padding: 50px;
+      padding-top: 30px;
+      display: block;
+    }
+
+    h1 {
+      font-size: 60px;
+      color: #09c;
+      padding-bottom: 0px !important;
+      margin-bottom: 0px !important;
+    }
+
+    h2 {
+      font-size: 50px;
+      padding-bottom: 0px !important;
+      margin-top: 0px;
+      margin-bottom: 0px !important;
+    }
+
+    section footer {
+        top: 650px;
+        left: 50px;
+        right: 80px;
+        font-size: 24px;
+        line-height: 36px;
+    }
+
+    section img {
+        max-height: 470px;
+        max-width: 100%;
+    }
+
+    section.center p {
+        text-align: center;
+        align-content: center;
+    }
+
+    section::after {
+      bottom: 0;
+      content: attr(data-marpit-pagination);
+      padding: inherit;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      top: 620px;
+    }
+
+    section.lead::after {
+        display: none;
+    }
+
+    section:not([data-marpit-pagination])::after {
+      display: none;
+    }
 ---
 
-<style>
-/* @theme marpit-theme */
-@import 'scaffoldTheme';
-section.lead h1 {
-  text-align: center;
-  margin: 30px !important;
-}
-
-section.lead h2 {
-  padding-top: 30px !important;
-  padding-bottom: 30px !important;
-}
-
-section {
-  width: 1280px;
-  height: 960px;
-  font-size: 40px;
-  padding: 50px;
-  padding-top: 30px;
-  display: block;
-}
-
-h1 {
-  font-size: 60px;
-  color: #09c;
-  padding-bottom: 0px !important;
-  margin-bottom: 0px !important;
-}
-
-h2 {
-  font-size: 50px;
-  padding-bottom: 0px !important;
-  margin-top: 0px;
-  margin-bottom: 0px !important;
-}
-
-section footer {
-    top: 650px;
-    left: 50px;
-    right: 80px;
-    font-size: 24px;
-    line-height: 36px;
-}
-
-section img {
-    max-height: 470px;
-    max-width: 100%;
-}
-
-section.center p {
-    text-align: center;
-    align-content: center;
-}
-
-section::after {
-  bottom: 0;
-  content: attr(data-marpit-pagination);
-  padding: inherit;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  top: 620px;
-}
-
-section.lead::after {
-    display: none;
-}
-
-section:not([data-marpit-pagination])::after {
-  display: none;
-}
-</style>
 
 # Apache.JMeter в большом проекте
 
@@ -84,7 +81,7 @@ section:not([data-marpit-pagination])::after {
 
 ## Смирнов Вячеслав
 
-Эксперт по тестированию Райффайзен БАНК
+Эксперт по тестированию Райффайзен банк
 
 ----------
 
@@ -153,7 +150,8 @@ _class: center
 _class: center
 _footer: Скрипт с плагинами
 -->
-<h1><strike>Автоматизация</strike> сборки и настройки</h1>
+
+# (Автоматизация) сборки и настройки
 
 ## Скрипты JMeter (без библиотек и плагинов)
 
@@ -164,7 +162,8 @@ _footer: Скрипт с плагинами
 _class: center
 _footer: Отсутствующие популярные плагины можно докачать
 -->
-<h1><strike>Автоматизация</strike> сборки и настройки</h1>
+
+# (Автоматизация) сборки и настройки
 
 ## Скрипты JMeter (без библиотек и плагинов)
 
@@ -228,7 +227,7 @@ Property-файл передаётся в JMeter при запуске скри�
 
 --------
 <!-- 
-_footer: https://github.com/jmeter-maven-plugin/jmeter-maven-plugin <br>(2010-10 – ...) Mark Collin @Ardesco, Philippe M @pmouawad</nobr>
+_footer: https://github.com/jmeter-maven-plugin/jmeter-maven-plugin <br>(2010-10 – ...) Mark Collin @Ardesco, Philippe M @pmouawad
 
 -->
 # Автоматизация сборки и настройки
@@ -377,6 +376,9 @@ Killed
 telegraf:
 * inputs.procstat: `pattern: "java.+/ApacheJMeter"`
 
+<!-- _footer: https://github.com/influxdata/telegraf/tree/master/plugins/inputs/procstat -->
+
+
 ---------
 # Инструменты подачи нагрузки
 ## Оптимизации
@@ -514,6 +516,8 @@ telegraf:
 
 ![](img/jmeter.html.png)
 
+<!-- _footer: https://github.com/influxdata/telegraf/tree/master/plugins/parsers/csv + разнообразить timestamp -->
+
 --------
 <!-- _class: center -->
 # Отчётность
@@ -521,12 +525,16 @@ telegraf:
 
 ![](img/gatling.time.png)
 
+<!-- _footer: http://www.gnu.org/software/gawk/manual/html_node/index.html -->
+
 --------
 <!-- _class: center -->
 # Отчётность
 ## Метрики
 
 ![](img/server.diskio.png)
+
+<!-- _footer: https://grafana.com/ -->
 
 --------
 <!-- _class: center -->
@@ -562,4 +570,4 @@ telegraf:
 
 #### Смирнов Вячеслав
 
-Эксперт по тестированию Райффайзен БАНК
+Эксперт по тестированию Райффайзен банк
