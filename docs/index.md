@@ -194,20 +194,6 @@ _footer: Отсутствующие популярные плагины можн
 ## Скрипт JMeter + каталог с зависимостями
 
 * ../libs/
-    * com.ibm.mq.jar
-* ../plugins/
-    * jpgc-casutg-2.6/
-        - jmeter-plugins-casutg-2.6.jar
-    * jpgc-casutg-2.6.libs/
-        - jmeter-plugins-cmn-jmeter-0.4.jar
-
---------
-
-# Автоматизация сборки и настройки
-
-## Скрипт JMeter + каталог с зависимостями
-
-* ../libs/
     * com.ibm.mq.jar **(user.classpath)**
 * ../plugins/
     * jpgc-casutg-2.6/lib/ext/ **(search.paths)**
@@ -541,15 +527,6 @@ telegraf:
 ## Метрики
 
 ![](img/server.diskio.png)
-
---------
-<!-- _class: center -->
-# Отчётность
-## Метрики
-
-![](img/server.sql.stats.png)
-
-<!-- _footer: https://github.com/influxdata/telegraf/issues/3497 - [influxdata/telegraf] PostgreSQL extensible Parse error when specifying tagvalue="query" for pg_stat_statements (#3497) -->
 
 --------
 <!-- _class: center -->
