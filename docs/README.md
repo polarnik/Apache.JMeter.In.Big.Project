@@ -9,6 +9,14 @@ style: |
       margin: 30px !important;
     }
 
+    div.logo {
+      content:url(img/Group.png);
+      top: 0px !important;
+      left: 1125px !important;
+      position: absolute;
+      width: 150px;
+    }​
+
     section.lead h2 {
       padding-top: 30px !important;
       padding-bottom: 30px !important;
@@ -21,6 +29,11 @@ style: |
       padding: 50px;
       padding-top: 30px;
       display: block;
+
+      /*background:url(img/Group.png) no-repeat;height:44 px;width:150 px;*/
+      background-color: white;
+      background-repeat: no-repeat;
+      background-position: right top;
     }
 
     h1 {
@@ -75,7 +88,7 @@ style: |
 ---
 
 
-# Apache.JMeter в большом проекте
+# От Apache.JMeter к Gatling
 
 ## Performance на каждый день
 
@@ -93,6 +106,7 @@ CI/CD для тестирования производительности:
 * автоматизировать выполнение теста
 * уложиться в возможности сборочного агента
 
+
 --------
 <!-- 
 _footer: https://habr.com/company/raiffeisenbank/blog/342126/ <br>Централизованный сontinuous deployment за год (2017-11) Максим Ефимов @WaRm
@@ -102,6 +116,7 @@ _class: center
 # Continuous deployment
 
 ![width:100% height:100%](img/ci_cd_components.jpeg)
+
 
 --------
 <!-- 
@@ -113,7 +128,6 @@ _class: center
 # Continuous deployment
 
 ![width:100% height:100%](img/ci_cd_habr.png)
-
 
 --------
 <!-- 
@@ -267,6 +281,16 @@ _footer: https://github.com/jmeter-maven-plugin/jmeter-maven-plugin <br>(2010-10
 +---+
 ```
 
+--------
+<!-- 
+_footer: https://loadtestweb.wordpress.com/2018/11/16/jmeter-maven-plugin/ <br>https://github.com/polarnik/jmeter-loadtestweb
+_class: center
+-->
+# Автоматизация сборки и настройки
+
+## Скрипт JMeter + jmeter-maven-plugin
+
+![fit](img/intellij-idea-apache-jmeter-project-blank-4.png)
 
 --------
 # Автоматизация сборки и настройки
@@ -284,17 +308,6 @@ _footer: https://github.com/jmeter-maven-plugin/jmeter-maven-plugin <br>(2010-10
 
 <!-- 
 _footer: https://habr.com/post/342380/ <br>Нагрузочное тестирование, история автоматизации процесса (2017-11) Герман Сёмин @v0devil
--->
-
--------
-<!-- _class: center -->
-# Автоматизация сборки и настройки
-## Скрипты JMeter + единый дистрибутив
-
-![fit](img/JMeter-Control-Center-controller.png)
-
-<!-- 
-_footer: https://github.com/innogames/JMeter-Control-Center <br>(2016-12 – ...) German Syomin @v0devil
 -->
 
 --------
@@ -386,6 +399,7 @@ telegraf:
 * `[-]` Debug Sampler
 * `[-]` Thread Group, Generate Parent Sampler
 * `[-]` XPath Extractor
+* `[-]` XML-лог
 * `[+]` nonGuiMode
 * `[+]` Regular Expression Extractor
 * создавать минимальное количество потоков
@@ -534,7 +548,7 @@ telegraf:
 
 ![](img/server.diskio.png)
 
-<!-- _footer: https://grafana.com/ -->
+<!-- _footer: https://github.com/influxdata/telegraf/tree/master/plugins/inputs/diskio -->
 
 --------
 <!-- _class: center -->
@@ -546,13 +560,71 @@ telegraf:
 <!-- _footer: https://github.com/influxdata/telegraf/issues/3497 - [influxdata/telegraf] PostgreSQL extensible Parse error when specifying tagvalue="query" for pg_stat_statements (#3497) -->
 
 --------
+# Отчётность
+
+## create.configs.bat
+
+```
+:: Bat file to create Telegraf configs for several hosts.
+:: To create config files you should specify host name and list of telegraf template files separated by space for each host.
+:: Config files (telegraf.conf) will be created in the 'config/<host-name>' dir.
+@pushd "%~dp0"
+@echo off
+
+chcp 65001
+
+:: clean old configs
+rmdir /S /Q configs
+mkdir configs
+
+:: testWebStand.raiffeisen.ru (web,haproxy)
+call:create_config testWebStand.raiffeisen.ru ^
+  telegraf.header.conf telegraf.input.linux.conf telegraf.input.haproxy.conf
+
+pause
+goto:eof
+```
+
+--------
+# Отчётность
+
+## create.configs.bat
+
+```
+::--------------------------------------------------------------------------------------------------------------------
+:: Creates a Telegraf config for specified host from specified templates
+::--------------------------------------------------------------------------------------------------------------------
+:create_config
+SETLOCAL
+set HOSTNAME=%~1
+set CONFIG_FILE=configs\%HOSTNAME%\telegraf.conf
+echo.
+echo %HOSTNAME%: Telegraf config will be created in "%CONFIG_FILE%"
+md configs\%HOSTNAME% && copy NUL %CONFIG_FILE% > NUL
+
+for /f "tokens=1,* delims= " %%a in ("%*") do set ALL_ARGS_BUT_FIRST=%%b
+for %%a in (%ALL_ARGS_BUT_FIRST%) do (
+  echo. %%a
+  type %%a >> %CONFIG_FILE%
+)
+ENDLOCAL
+goto:eof
+::create_config
+
+@popd
+pause
+```
+
+--------
 <!-- _class: center -->
 # Отчётность
 ## Логи системы
 
 ![](img/Log.analyse.png)
 
+
 --------
+
 
 
 <!-- _class: center -->
@@ -563,10 +635,6 @@ telegraf:
 ----
 
 # Спасибо
-
-## Apache.JMeter в большом проекте
-
-#### Performance на каждый день
 
 #### Смирнов Вячеслав
 
